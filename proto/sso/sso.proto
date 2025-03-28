@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package auth;
 
-option go_package = "proto.sso.v1;sso_v1";
+option go_package = "github.com/Grino777/sso-proto/gen/go/sso";
 
 service Auth {
     // Login user and return token
