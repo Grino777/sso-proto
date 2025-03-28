@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "proto.sso.v1;sso_v1"
