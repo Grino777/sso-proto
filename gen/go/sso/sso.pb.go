@@ -21,18 +21,70 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type AuthMetadata struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AppId         int32                  `protobuf:"varint,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	Timestamp     string                 `protobuf:"bytes,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AuthMetadata) Reset() {
+	*x = AuthMetadata{}
+	mi := &file_sso_sso_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AuthMetadata) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AuthMetadata) ProtoMessage() {}
+
+func (x *AuthMetadata) ProtoReflect() protoreflect.Message {
+	mi := &file_sso_sso_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AuthMetadata.ProtoReflect.Descriptor instead.
+func (*AuthMetadata) Descriptor() ([]byte, []int) {
+	return file_sso_sso_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *AuthMetadata) GetAppId() int32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
+}
+
+func (x *AuthMetadata) GetTimestamp() string {
+	if x != nil {
+		return x.Timestamp
+	}
+	return ""
+}
+
 type LoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	AppId         uint32                 `protobuf:"varint,3,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	Metadata      *AuthMetadata          `protobuf:"bytes,1,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *LoginRequest) Reset() {
 	*x = LoginRequest{}
-	mi := &file_sso_sso_proto_msgTypes[0]
+	mi := &file_sso_sso_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +96,7 @@ func (x *LoginRequest) String() string {
 func (*LoginRequest) ProtoMessage() {}
 
 func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[0]
+	mi := &file_sso_sso_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +109,14 @@ func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{0}
+	return file_sso_sso_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *LoginRequest) GetMetadata() *AuthMetadata {
+	if x != nil {
+		return x.Metadata
+	}
+	return nil
 }
 
 func (x *LoginRequest) GetUsername() string {
@@ -74,13 +133,6 @@ func (x *LoginRequest) GetPassword() string {
 	return ""
 }
 
-func (x *LoginRequest) GetAppId() uint32 {
-	if x != nil {
-		return x.AppId
-	}
-	return 0
-}
-
 type LoginResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
@@ -90,7 +142,7 @@ type LoginResponse struct {
 
 func (x *LoginResponse) Reset() {
 	*x = LoginResponse{}
-	mi := &file_sso_sso_proto_msgTypes[1]
+	mi := &file_sso_sso_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -102,7 +154,7 @@ func (x *LoginResponse) String() string {
 func (*LoginResponse) ProtoMessage() {}
 
 func (x *LoginResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[1]
+	mi := &file_sso_sso_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -115,7 +167,7 @@ func (x *LoginResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
 func (*LoginResponse) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{1}
+	return file_sso_sso_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *LoginResponse) GetToken() string {
@@ -127,14 +179,15 @@ func (x *LoginResponse) GetToken() string {
 
 type LogoutRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Metadata      *AuthMetadata          `protobuf:"bytes,1,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *LogoutRequest) Reset() {
 	*x = LogoutRequest{}
-	mi := &file_sso_sso_proto_msgTypes[2]
+	mi := &file_sso_sso_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -146,7 +199,7 @@ func (x *LogoutRequest) String() string {
 func (*LogoutRequest) ProtoMessage() {}
 
 func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[2]
+	mi := &file_sso_sso_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -159,7 +212,14 @@ func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LogoutRequest.ProtoReflect.Descriptor instead.
 func (*LogoutRequest) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{2}
+	return file_sso_sso_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *LogoutRequest) GetMetadata() *AuthMetadata {
+	if x != nil {
+		return x.Metadata
+	}
+	return nil
 }
 
 func (x *LogoutRequest) GetToken() string {
@@ -178,7 +238,7 @@ type LogoutResponse struct {
 
 func (x *LogoutResponse) Reset() {
 	*x = LogoutResponse{}
-	mi := &file_sso_sso_proto_msgTypes[3]
+	mi := &file_sso_sso_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -190,7 +250,7 @@ func (x *LogoutResponse) String() string {
 func (*LogoutResponse) ProtoMessage() {}
 
 func (x *LogoutResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[3]
+	mi := &file_sso_sso_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -203,7 +263,7 @@ func (x *LogoutResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LogoutResponse.ProtoReflect.Descriptor instead.
 func (*LogoutResponse) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{3}
+	return file_sso_sso_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *LogoutResponse) GetSuccess() bool {
@@ -215,15 +275,16 @@ func (x *LogoutResponse) GetSuccess() bool {
 
 type RegisterRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	Metadata      *AuthMetadata          `protobuf:"bytes,1,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *RegisterRequest) Reset() {
 	*x = RegisterRequest{}
-	mi := &file_sso_sso_proto_msgTypes[4]
+	mi := &file_sso_sso_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -235,7 +296,7 @@ func (x *RegisterRequest) String() string {
 func (*RegisterRequest) ProtoMessage() {}
 
 func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[4]
+	mi := &file_sso_sso_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -248,7 +309,14 @@ func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterRequest.ProtoReflect.Descriptor instead.
 func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{4}
+	return file_sso_sso_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *RegisterRequest) GetMetadata() *AuthMetadata {
+	if x != nil {
+		return x.Metadata
+	}
+	return nil
 }
 
 func (x *RegisterRequest) GetUsername() string {
@@ -274,7 +342,7 @@ type RegisterResponse struct {
 
 func (x *RegisterResponse) Reset() {
 	*x = RegisterResponse{}
-	mi := &file_sso_sso_proto_msgTypes[5]
+	mi := &file_sso_sso_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -286,7 +354,7 @@ func (x *RegisterResponse) String() string {
 func (*RegisterResponse) ProtoMessage() {}
 
 func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[5]
+	mi := &file_sso_sso_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -299,7 +367,7 @@ func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterResponse.ProtoReflect.Descriptor instead.
 func (*RegisterResponse) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{5}
+	return file_sso_sso_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *RegisterResponse) GetSuccess() bool {
@@ -311,14 +379,15 @@ func (x *RegisterResponse) GetSuccess() bool {
 
 type IsAdminRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Metadata      *AuthMetadata          `protobuf:"bytes,1,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *IsAdminRequest) Reset() {
 	*x = IsAdminRequest{}
-	mi := &file_sso_sso_proto_msgTypes[6]
+	mi := &file_sso_sso_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -330,7 +399,7 @@ func (x *IsAdminRequest) String() string {
 func (*IsAdminRequest) ProtoMessage() {}
 
 func (x *IsAdminRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[6]
+	mi := &file_sso_sso_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -343,7 +412,14 @@ func (x *IsAdminRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IsAdminRequest.ProtoReflect.Descriptor instead.
 func (*IsAdminRequest) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{6}
+	return file_sso_sso_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *IsAdminRequest) GetMetadata() *AuthMetadata {
+	if x != nil {
+		return x.Metadata
+	}
+	return nil
 }
 
 func (x *IsAdminRequest) GetToken() string {
@@ -362,7 +438,7 @@ type IsAdminResponse struct {
 
 func (x *IsAdminResponse) Reset() {
 	*x = IsAdminResponse{}
-	mi := &file_sso_sso_proto_msgTypes[7]
+	mi := &file_sso_sso_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -374,7 +450,7 @@ func (x *IsAdminResponse) String() string {
 func (*IsAdminResponse) ProtoMessage() {}
 
 func (x *IsAdminResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[7]
+	mi := &file_sso_sso_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -387,7 +463,7 @@ func (x *IsAdminResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IsAdminResponse.ProtoReflect.Descriptor instead.
 func (*IsAdminResponse) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{7}
+	return file_sso_sso_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *IsAdminResponse) GetIsAdmin() bool {
@@ -401,24 +477,30 @@ var File_sso_sso_proto protoreflect.FileDescriptor
 
 const file_sso_sso_proto_rawDesc = "" +
 	"\n" +
-	"\rsso/sso.proto\x12\x04auth\"]\n" +
-	"\fLoginRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x15\n" +
-	"\x06app_id\x18\x03 \x01(\rR\x05appId\"%\n" +
+	"\rsso/sso.proto\x12\x04auth\"C\n" +
+	"\fAuthMetadata\x12\x15\n" +
+	"\x06app_id\x18\x01 \x01(\x05R\x05appId\x12\x1c\n" +
+	"\ttimestamp\x18\x02 \x01(\tR\ttimestamp\"v\n" +
+	"\fLoginRequest\x12.\n" +
+	"\bmetadata\x18\x01 \x01(\v2\x12.auth.AuthMetadataR\bmetadata\x12\x1a\n" +
+	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"%\n" +
 	"\rLoginResponse\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\"%\n" +
-	"\rLogoutRequest\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\"*\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\"U\n" +
+	"\rLogoutRequest\x12.\n" +
+	"\bmetadata\x18\x01 \x01(\v2\x12.auth.AuthMetadataR\bmetadata\x12\x14\n" +
+	"\x05token\x18\x02 \x01(\tR\x05token\"*\n" +
 	"\x0eLogoutResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"I\n" +
-	"\x0fRegisterRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\",\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"y\n" +
+	"\x0fRegisterRequest\x12.\n" +
+	"\bmetadata\x18\x01 \x01(\v2\x12.auth.AuthMetadataR\bmetadata\x12\x1a\n" +
+	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\",\n" +
 	"\x10RegisterResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"&\n" +
-	"\x0eIsAdminRequest\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\",\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"V\n" +
+	"\x0eIsAdminRequest\x12.\n" +
+	"\bmetadata\x18\x01 \x01(\v2\x12.auth.AuthMetadataR\bmetadata\x12\x14\n" +
+	"\x05token\x18\x02 \x01(\tR\x05token\",\n" +
 	"\x0fIsAdminResponse\x12\x19\n" +
 	"\bis_admin\x18\x01 \x01(\bR\aisAdmin2\xe0\x01\n" +
 	"\x04Auth\x120\n" +
@@ -439,31 +521,36 @@ func file_sso_sso_proto_rawDescGZIP() []byte {
 	return file_sso_sso_proto_rawDescData
 }
 
-var file_sso_sso_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_sso_sso_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_sso_sso_proto_goTypes = []any{
-	(*LoginRequest)(nil),     // 0: auth.LoginRequest
-	(*LoginResponse)(nil),    // 1: auth.LoginResponse
-	(*LogoutRequest)(nil),    // 2: auth.LogoutRequest
-	(*LogoutResponse)(nil),   // 3: auth.LogoutResponse
-	(*RegisterRequest)(nil),  // 4: auth.RegisterRequest
-	(*RegisterResponse)(nil), // 5: auth.RegisterResponse
-	(*IsAdminRequest)(nil),   // 6: auth.IsAdminRequest
-	(*IsAdminResponse)(nil),  // 7: auth.IsAdminResponse
+	(*AuthMetadata)(nil),     // 0: auth.AuthMetadata
+	(*LoginRequest)(nil),     // 1: auth.LoginRequest
+	(*LoginResponse)(nil),    // 2: auth.LoginResponse
+	(*LogoutRequest)(nil),    // 3: auth.LogoutRequest
+	(*LogoutResponse)(nil),   // 4: auth.LogoutResponse
+	(*RegisterRequest)(nil),  // 5: auth.RegisterRequest
+	(*RegisterResponse)(nil), // 6: auth.RegisterResponse
+	(*IsAdminRequest)(nil),   // 7: auth.IsAdminRequest
+	(*IsAdminResponse)(nil),  // 8: auth.IsAdminResponse
 }
 var file_sso_sso_proto_depIdxs = []int32{
-	0, // 0: auth.Auth.Login:input_type -> auth.LoginRequest
-	2, // 1: auth.Auth.Logout:input_type -> auth.LogoutRequest
-	4, // 2: auth.Auth.Register:input_type -> auth.RegisterRequest
-	6, // 3: auth.Auth.IsAdmin:input_type -> auth.IsAdminRequest
-	1, // 4: auth.Auth.Login:output_type -> auth.LoginResponse
-	3, // 5: auth.Auth.Logout:output_type -> auth.LogoutResponse
-	5, // 6: auth.Auth.Register:output_type -> auth.RegisterResponse
-	7, // 7: auth.Auth.IsAdmin:output_type -> auth.IsAdminResponse
-	4, // [4:8] is the sub-list for method output_type
-	0, // [0:4] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: auth.LoginRequest.metadata:type_name -> auth.AuthMetadata
+	0, // 1: auth.LogoutRequest.metadata:type_name -> auth.AuthMetadata
+	0, // 2: auth.RegisterRequest.metadata:type_name -> auth.AuthMetadata
+	0, // 3: auth.IsAdminRequest.metadata:type_name -> auth.AuthMetadata
+	1, // 4: auth.Auth.Login:input_type -> auth.LoginRequest
+	3, // 5: auth.Auth.Logout:input_type -> auth.LogoutRequest
+	5, // 6: auth.Auth.Register:input_type -> auth.RegisterRequest
+	7, // 7: auth.Auth.IsAdmin:input_type -> auth.IsAdminRequest
+	2, // 8: auth.Auth.Login:output_type -> auth.LoginResponse
+	4, // 9: auth.Auth.Logout:output_type -> auth.LogoutResponse
+	6, // 10: auth.Auth.Register:output_type -> auth.RegisterResponse
+	8, // 11: auth.Auth.IsAdmin:output_type -> auth.IsAdminResponse
+	8, // [8:12] is the sub-list for method output_type
+	4, // [4:8] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_sso_sso_proto_init() }
@@ -477,7 +564,7 @@ func file_sso_sso_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_sso_sso_proto_rawDesc), len(file_sso_sso_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -20,10 +20,15 @@ service Auth {
     // rpc UserInfo (UserInfoRequest) returns (UserInfoResponse);
 }
 
+message AuthMetadata {
+    int32 app_id = 1;
+    string timestamp = 2;
+}
+
 message LoginRequest {
-    string username = 1;
-    string password = 2;
-    uint32 app_id = 3;
+    AuthMetadata metadata = 1;
+    string username = 2;
+    string password = 3;
 }
 
 message LoginResponse {
@@ -31,7 +36,8 @@ message LoginResponse {
 }
 
 message LogoutRequest {
-    string token = 1;
+    AuthMetadata metadata = 1;
+    string token = 2;
 }
 
 message LogoutResponse {
@@ -39,8 +45,9 @@ message LogoutResponse {
 }
 
 message RegisterRequest {
-    string username = 1;
-    string password = 2;
+    AuthMetadata metadata = 1;
+    string username = 2;
+    string password = 3;
 }
 
 message RegisterResponse {
@@ -48,7 +55,8 @@ message RegisterResponse {
 }
 
 message IsAdminRequest {
-    string token = 1;
+    AuthMetadata metadata = 1;
+    string token = 2;
 }
 
 message IsAdminResponse {
