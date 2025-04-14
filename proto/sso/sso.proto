@@ -21,7 +21,7 @@ service Auth {
 }
 
 message AuthMetadata {
-    int32 app_id = 1;
+    uint32 app_id = 1;
     string timestamp = 2;
 }
 

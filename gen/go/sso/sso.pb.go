@@ -23,7 +23,7 @@ const (
 
 type AuthMetadata struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	AppId         int32                  `protobuf:"varint,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	AppId         uint32                 `protobuf:"varint,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	Timestamp     string                 `protobuf:"bytes,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -59,7 +59,7 @@ func (*AuthMetadata) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *AuthMetadata) GetAppId() int32 {
+func (x *AuthMetadata) GetAppId() uint32 {
 	if x != nil {
 		return x.AppId
 	}
@@ -479,7 +479,7 @@ const file_sso_sso_proto_rawDesc = "" +
 	"\n" +
 	"\rsso/sso.proto\x12\x04auth\"C\n" +
 	"\fAuthMetadata\x12\x15\n" +
-	"\x06app_id\x18\x01 \x01(\x05R\x05appId\x12\x1c\n" +
+	"\x06app_id\x18\x01 \x01(\rR\x05appId\x12\x1c\n" +
 	"\ttimestamp\x18\x02 \x01(\tR\ttimestamp\"v\n" +
 	"\fLoginRequest\x12.\n" +
 	"\bmetadata\x18\x01 \x01(\v2\x12.auth.AuthMetadataR\bmetadata\x12\x1a\n" +
