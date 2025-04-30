@@ -17,7 +17,15 @@ service Auth {
     // Check user role and return boolean value
     rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
 
+    // Refresh user tokens
+    rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
+
     // rpc UserInfo (UserInfoRequest) returns (UserInfoResponse);
+}
+
+message UserToken {
+    string token = 1;
+    string expired_at = 2;
 }
 
 message AuthMetadata {
@@ -63,9 +71,11 @@ message IsAdminResponse {
     bool is_admin = 1;
 }
 
-// message UserInfoRequest {
+message RefreshTokenRequest {
+    string refresh_token = 1;
+}
 
-// }
-// message UserInfoResponse {
-
-// }
+message RefreshTokenResponse {
+    UserToken token = 1;
+    UserToken refresh_token = 2;
+}
