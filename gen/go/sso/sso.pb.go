@@ -187,7 +187,7 @@ func (x *LoginRequest) GetPassword() string {
 
 type LoginResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Token         *UserToken             `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -222,11 +222,11 @@ func (*LoginResponse) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *LoginResponse) GetToken() string {
+func (x *LoginResponse) GetToken() *UserToken {
 	if x != nil {
 		return x.Token
 	}
-	return ""
+	return nil
 }
 
 type LogoutRequest struct {
@@ -636,9 +636,9 @@ const file_sso_sso_proto_rawDesc = "" +
 	"\fLoginRequest\x12.\n" +
 	"\bmetadata\x18\x01 \x01(\v2\x12.auth.AuthMetadataR\bmetadata\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\"%\n" +
-	"\rLoginResponse\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\"U\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"6\n" +
+	"\rLoginResponse\x12%\n" +
+	"\x05token\x18\x01 \x01(\v2\x0f.auth.UserTokenR\x05token\"U\n" +
 	"\rLogoutRequest\x12.\n" +
 	"\bmetadata\x18\x01 \x01(\v2\x12.auth.AuthMetadataR\bmetadata\x12\x14\n" +
 	"\x05token\x18\x02 \x01(\tR\x05token\"*\n" +
@@ -696,26 +696,27 @@ var file_sso_sso_proto_goTypes = []any{
 }
 var file_sso_sso_proto_depIdxs = []int32{
 	1,  // 0: auth.LoginRequest.metadata:type_name -> auth.AuthMetadata
-	1,  // 1: auth.LogoutRequest.metadata:type_name -> auth.AuthMetadata
-	1,  // 2: auth.RegisterRequest.metadata:type_name -> auth.AuthMetadata
-	1,  // 3: auth.IsAdminRequest.metadata:type_name -> auth.AuthMetadata
-	0,  // 4: auth.RefreshTokenResponse.token:type_name -> auth.UserToken
-	0,  // 5: auth.RefreshTokenResponse.refresh_token:type_name -> auth.UserToken
-	2,  // 6: auth.Auth.Login:input_type -> auth.LoginRequest
-	4,  // 7: auth.Auth.Logout:input_type -> auth.LogoutRequest
-	6,  // 8: auth.Auth.Register:input_type -> auth.RegisterRequest
-	8,  // 9: auth.Auth.IsAdmin:input_type -> auth.IsAdminRequest
-	10, // 10: auth.Auth.RefreshToken:input_type -> auth.RefreshTokenRequest
-	3,  // 11: auth.Auth.Login:output_type -> auth.LoginResponse
-	5,  // 12: auth.Auth.Logout:output_type -> auth.LogoutResponse
-	7,  // 13: auth.Auth.Register:output_type -> auth.RegisterResponse
-	9,  // 14: auth.Auth.IsAdmin:output_type -> auth.IsAdminResponse
-	11, // 15: auth.Auth.RefreshToken:output_type -> auth.RefreshTokenResponse
-	11, // [11:16] is the sub-list for method output_type
-	6,  // [6:11] is the sub-list for method input_type
-	6,  // [6:6] is the sub-list for extension type_name
-	6,  // [6:6] is the sub-list for extension extendee
-	0,  // [0:6] is the sub-list for field type_name
+	0,  // 1: auth.LoginResponse.token:type_name -> auth.UserToken
+	1,  // 2: auth.LogoutRequest.metadata:type_name -> auth.AuthMetadata
+	1,  // 3: auth.RegisterRequest.metadata:type_name -> auth.AuthMetadata
+	1,  // 4: auth.IsAdminRequest.metadata:type_name -> auth.AuthMetadata
+	0,  // 5: auth.RefreshTokenResponse.token:type_name -> auth.UserToken
+	0,  // 6: auth.RefreshTokenResponse.refresh_token:type_name -> auth.UserToken
+	2,  // 7: auth.Auth.Login:input_type -> auth.LoginRequest
+	4,  // 8: auth.Auth.Logout:input_type -> auth.LogoutRequest
+	6,  // 9: auth.Auth.Register:input_type -> auth.RegisterRequest
+	8,  // 10: auth.Auth.IsAdmin:input_type -> auth.IsAdminRequest
+	10, // 11: auth.Auth.RefreshToken:input_type -> auth.RefreshTokenRequest
+	3,  // 12: auth.Auth.Login:output_type -> auth.LoginResponse
+	5,  // 13: auth.Auth.Logout:output_type -> auth.LogoutResponse
+	7,  // 14: auth.Auth.Register:output_type -> auth.RegisterResponse
+	9,  // 15: auth.Auth.IsAdmin:output_type -> auth.IsAdminResponse
+	11, // 16: auth.Auth.RefreshToken:output_type -> auth.RefreshTokenResponse
+	12, // [12:17] is the sub-list for method output_type
+	7,  // [7:12] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_sso_sso_proto_init() }
