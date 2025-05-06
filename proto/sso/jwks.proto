@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package jwks;
+
+option go_package = "github.com/Grino777/sso-proto/gen/go/sso";
+
+service JwksService {
+    rpc GetJwks(GetJwksRequest) returns (GetJwksResponse);
+}
+
+message GetJwksRequest {}
+
+message GetJwksResponse {
+  repeated Jwk keys = 1;
+}
+message Jwk {
+  string kid = 1;
+  string kty = 2;
+  string use = 3;
+  string n = 4;
+  string e = 5;
+}
