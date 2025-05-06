@@ -4,7 +4,7 @@ package jwks;
 
 option go_package = "github.com/Grino777/sso-proto/gen/go/sso";
 
-service JwksService {
+service Jwks {
     rpc GetJwks(GetJwksRequest) returns (GetJwksResponse);
 }
 

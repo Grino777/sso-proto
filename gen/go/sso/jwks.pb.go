@@ -190,8 +190,8 @@ const file_sso_jwks_proto_rawDesc = "" +
 	"\x03kty\x18\x02 \x01(\tR\x03kty\x12\x10\n" +
 	"\x03use\x18\x03 \x01(\tR\x03use\x12\f\n" +
 	"\x01n\x18\x04 \x01(\tR\x01n\x12\f\n" +
-	"\x01e\x18\x05 \x01(\tR\x01e2E\n" +
-	"\vJwksService\x126\n" +
+	"\x01e\x18\x05 \x01(\tR\x01e2>\n" +
+	"\x04Jwks\x126\n" +
 	"\aGetJwks\x12\x14.jwks.GetJwksRequest\x1a\x15.jwks.GetJwksResponseB*Z(github.com/Grino777/sso-proto/gen/go/ssob\x06proto3"
 
 var (
@@ -214,8 +214,8 @@ var file_sso_jwks_proto_goTypes = []any{
 }
 var file_sso_jwks_proto_depIdxs = []int32{
 	2, // 0: jwks.GetJwksResponse.keys:type_name -> jwks.Jwk
-	0, // 1: jwks.JwksService.GetJwks:input_type -> jwks.GetJwksRequest
-	1, // 2: jwks.JwksService.GetJwks:output_type -> jwks.GetJwksResponse
+	0, // 1: jwks.Jwks.GetJwks:input_type -> jwks.GetJwksRequest
+	1, // 2: jwks.Jwks.GetJwks:output_type -> jwks.GetJwksResponse
 	2, // [2:3] is the sub-list for method output_type
 	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
