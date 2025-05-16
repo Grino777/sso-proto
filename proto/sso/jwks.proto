@@ -13,7 +13,8 @@ message GetJwksRequest {}
 message GetJwksResponse {
   repeated Jwk keys = 1;
 }
-message Jwk {
+
+message JwksToken {
   string kid = 1;
   string kty = 2;
   string use = 3;
