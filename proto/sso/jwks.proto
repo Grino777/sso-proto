@@ -11,7 +11,7 @@ service Jwks {
 message GetJwksRequest {}
 
 message GetJwksResponse {
-  repeated Jwk keys = 1;
+  repeated JwksToken keys = 1;
 }
 
 message JwksToken {
